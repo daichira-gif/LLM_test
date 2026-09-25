@@ -65,7 +65,18 @@ The existing Codex V001 skills contain Windows/WSL-specific helper roots such as
 - `C:\\Users\\daich\\OneDrive\\LLM\\LLMATCH`
 - `/mnt/c/Users/daich/OneDrive/LLM/LLMATCH`
 
-Those paths must **not** be copied into the Mac Claude adapter. The Claude version should resolve repository-local helpers through `${CLAUDE_PROJECT_DIR}` or an explicitly generated local configuration.
+Those paths must **not** be copied into the Mac Claude adapter. Claude V001 must also avoid relying on `${CLAUDE_PROJECT_DIR}` as the only root locator because released Claude Code versions have had macOS/worktree cases where that value was absent or did not identify the active worktree. Helper invocation should resolve the Git top-level directory as a deterministic fallback and verify that `scripts/research/` exists before use.
+
+Recommended resolver:
+
+```bash
+ROOT="${CLAUDE_PROJECT_DIR:-}"
+if [[ -z "$ROOT" || ! -d "$ROOT/scripts/research" ]]; then
+  ROOT="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
+fi
+```
+
+Mac-specific absolute protected paths remain generated local configuration rather than committed shared policy.
 
 ## Source implementation
 
