@@ -1,0 +1,30 @@
+{
+  "schema_version": "claude-research-environment.status.v1",
+  "artifact_family": "claude-research-v001",
+  "status": "DESIGN_ONLY_NOT_IMPLEMENTED",
+  "target_environment": {
+    "platform": "MacBook Air / macOS",
+    "host": "Claude Code"
+  },
+  "semantic_baseline": {
+    "repository": "daichira-gif/LLM_test",
+    "path": "codex-research-v001",
+    "branch": "main"
+  },
+  "design_files": [
+    "README.md",
+    "DESIGN.md",
+    "IMPLEMENTATION_PLAN.md",
+    "QUALIFICATION_CHECKLIST.md",
+    "STATUS.json"
+  ],
+  "implementation_started": false,
+  "qualification_started": false,
+  "protected_artifacts_modified": false,
+  "notes": [
+    "Claude V001 must not copy Windows/WSL hardcoded helper roots from Codex V001.",
+    "Shared research policy should remain in AGENTS.md.",
+    "Mac-specific absolute protected paths should be generated locally and not committed.",
+    "gstack, ECC, and Super Skills are intentionally excluded from initial Claude V001."
+  ]
+}
