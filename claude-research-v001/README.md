@@ -86,6 +86,24 @@ The Codex implementation used as the semantic baseline is:
 
 Claude adaptation must preserve the research meaning of the six skills while changing only host-specific invocation, frontmatter, permissions, hooks, sandbox controls, and path resolution.
 
+## Mac workspace baseline
+
+MacBook Air uses:
+
+```text
+~/develop/LLMATCH-KG-v3
+```
+
+No `LLMATCH` parent folder is used on this host.
+
+Known installation baseline:
+
+- hostname: `daichi-macbook`
+- Claude Code: `2.1.281`
+- installer-reported executable: `~/.local/bin/claude`
+
+See `MACBOOK_BASELINE_20260925.md`.
+
 ## Phase 0 helper
 
 Before implementation on the Mac, use:
