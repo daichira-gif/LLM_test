@@ -1,7 +1,7 @@
 {
   "schema_version": "claude-research-environment.status.v1",
   "artifact_family": "claude-research-v001",
-  "status": "DESIGN_ONLY_NOT_IMPLEMENTED",
+  "status": "DESIGN_ONLY_PHASE0_AUDIT_PENDING",
   "target_environment": {
     "platform": "MacBook Air / macOS",
     "host": "Claude Code"
@@ -11,19 +11,26 @@
     "path": "codex-research-v001",
     "branch": "main"
   },
+  "design_revision": {
+    "instruction_loading_correction": "CLAUDE.md bridge importing @AGENTS.md is required by V001 design; AGENTS.md remains the semantic source."
+  },
   "design_files": [
     "README.md",
     "DESIGN.md",
     "IMPLEMENTATION_PLAN.md",
     "QUALIFICATION_CHECKLIST.md",
+    "PHASE0_TERMINAL_GUIDE_JA.md",
+    "tools/mac_phase0_audit.sh",
     "STATUS.json"
   ],
   "implementation_started": false,
   "qualification_started": false,
+  "phase0_audit_completed": false,
   "protected_artifacts_modified": false,
   "notes": [
     "Claude V001 must not copy Windows/WSL hardcoded helper roots from Codex V001.",
-    "Shared research policy should remain in AGENTS.md.",
+    "AGENTS.md remains the shared semantic research-policy source.",
+    "Claude Code receives that policy through a minimal CLAUDE.md importing @AGENTS.md.",
     "Mac-specific absolute protected paths should be generated locally and not committed.",
     "gstack, ECC, and Super Skills are intentionally excluded from initial Claude V001."
   ]
