@@ -63,7 +63,7 @@ Claude-specific changes:
 
 - install under `.claude/skills/<skill>/SKILL.md`;
 - remove Windows/WSL hardcoded paths;
-- invoke helpers through `${CLAUDE_PROJECT_DIR}/scripts/research/`;
+- resolve the helper root defensively: prefer a valid `${CLAUDE_PROJECT_DIR}` when present, otherwise use `git rev-parse --show-toplevel`, and verify `scripts/research/` exists before execution;
 - add concise Claude-native routing metadata only when verified against the installed Claude Code version;
 - use higher effort for independent audit/investigation where supported;
 - do not make experiment execution automatic merely because preflight passes.
@@ -112,6 +112,19 @@ Shared settings should:
 - block common secret files such as `.env`.
 
 Exact setting keys must be validated against the installed Claude Code version during Phase 0 before committing runtime configuration.
+
+### Project-root resolution
+
+Do not make `CLAUDE_PROJECT_DIR` a single point of failure. Released Claude Code versions have had macOS and worktree cases where the variable was empty, stale, or pointed at the main repository rather than the active worktree.
+
+Use this resolution order for project-local helper invocation:
+
+1. use `CLAUDE_PROJECT_DIR` only when non-empty and it contains the expected `scripts/research/` directory;
+2. otherwise use `git rev-parse --show-toplevel`;
+3. only as a final non-Git fallback use the current working directory;
+4. fail closed if the expected helper path is still absent.
+
+Subagents and hooks must use the same resolver rather than assuming they inherit identical working-directory state.
 
 The design uses three protection layers for sensitive research artifacts:
 
