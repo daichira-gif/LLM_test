@@ -43,7 +43,9 @@ Before writing any Claude runtime files:
 
 6. Confirm that Windows/WSL paths are removed from all Claude-adapted skills.
 
-7. Confirm the corrected instruction-loading design:
+7. Treat `CLAUDE_PROJECT_DIR` as optional until the installed version is tested; do not design hooks or skills that fail solely because that variable is absent.
+
+8. Confirm the corrected instruction-loading design:
    - `AGENTS.md` remains the shared semantic source;
    - a minimal `CLAUDE.md` imports `@AGENTS.md`;
    - no duplicated policy copy is created.
@@ -65,7 +67,7 @@ For each Codex V001 skill:
 
 1. preserve semantic states and stop conditions,
 2. replace Windows/WSL helper roots,
-3. use `${CLAUDE_PROJECT_DIR}`,
+3. remove Windows/WSL helper roots and implement a root resolver that validates `${CLAUDE_PROJECT_DIR}` when present and otherwise falls back to `git rev-parse --show-toplevel`,
 4. add Claude-native routing metadata only after verifying support in the installed version,
 5. verify referenced assets and references exist,
 6. ensure no skill performs hidden file mutation.
