@@ -1,0 +1,2 @@
+exactは利用者が指定したmanifest内の一意なcurrent対象とbytesの一致。候補複数、不一致、superseded、欠落、未検証は区別し、最大版番号で解決しない。
+元のLLMATCH masterは索引なので、statusを新しいauthority状態へ自動変換しない。正式なauthority判断が必要なら元のline契約へ戻る。

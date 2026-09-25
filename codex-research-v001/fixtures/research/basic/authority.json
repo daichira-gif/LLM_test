@@ -1,0 +1,13 @@
+{
+  "authorities": [
+    {
+      "id": "source",
+      "path": "source.txt",
+      "role": "input",
+      "sha256": "5ce23817608f5ae304e2a1c72dc938db507f5b10787639f3e372c06859fa8e3f",
+      "state": "current",
+      "version": "fixture-v1"
+    }
+  ],
+  "schema_version": "1"
+}

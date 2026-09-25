@@ -1,0 +1,2 @@
+executionはreceiptの申告、persistenceは実bytesのreadback照合、structuralは実schema検証。V001 deterministic helperはsemantic/scientificを評価しない。
+科学的受入が必要な作業は元の評価契約へ戻り、Gold境界とmetric規則に従う。局所的な技術合格をその代用にしない。

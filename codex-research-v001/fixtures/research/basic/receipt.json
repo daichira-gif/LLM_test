@@ -1,0 +1,50 @@
+{
+  "code": {
+    "id": "code",
+    "path": "code.py",
+    "sha256": "23df806a901ade86694ac4699ed31ba874e8f183c34d2893449ba44f821e1bf9"
+  },
+  "config": {
+    "id": "config",
+    "path": "config.json",
+    "sha256": "3f9f20f5748bb93e8665a9593656a8cca8d112b0176ebdef46636fa90d9d929b"
+  },
+  "contract_sha256": "89b4d15e6b563f7ccbce5228cb30edbaec07ac79d8cdf4ab3b0fc991a8156b04",
+  "inference": {
+    "context_tokens": 4096,
+    "fallback": false,
+    "max_input_tokens": 1024,
+    "max_output_tokens": 128,
+    "request_count": 1,
+    "retry": 0,
+    "seed": 123,
+    "temperature": 0,
+    "top_p": 1
+  },
+  "inputs": [
+    {
+      "id": "derived",
+      "path": "derived.txt",
+      "sha256": "b74c18940fb17c24652094028f0c4ee2f8ed73a64bb1bd84be664344c2804c62"
+    }
+  ],
+  "model": {
+    "id": "model",
+    "path": "model.txt",
+    "sha256": "be322789ec3ac6bd7532e655958d23259157a9c09a23a7726bacd0002cf9a57c"
+  },
+  "outputs": [
+    {
+      "id": "result",
+      "path": "result.json",
+      "sha256": "ed16078eebfcb2307fc18a7f3e1cf0ef8f3e5797be80f1e3df251159c90f914f"
+    }
+  ],
+  "request_count": 1,
+  "runtime": {
+    "platform": "linux",
+    "python": "3.10.12"
+  },
+  "schema_version": "1",
+  "status": "completed"
+}

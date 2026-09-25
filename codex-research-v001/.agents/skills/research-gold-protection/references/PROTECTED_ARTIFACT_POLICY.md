@@ -1,0 +1,3 @@
+substringや広いglobでgold/holdout/authorityを判定しない。保護された子を含むディレクトリの移動・削除も対象。
+標準policyはLLMATCH全体をrootとして使う。検査rootを子repositoryへ変更する場合は、そのrootに対する正確なpolicyが必要。
+helperはOSアクセス制御ではなく、他の任意コマンドを遮断しない。

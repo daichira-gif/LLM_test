@@ -1,0 +1,10 @@
+# Experiment preflight
+
+入力、コード、設定、モデルのhash、runtime、推論条件、予定出力、前提条件を契約と照合します。
+V001の技術検査は研究モデルをロード・起動せず、GPU実機qualificationの代わりにもなりません。
+推論条件の宣言があることと実際のbackendでその条件が有効なことを区別します。
+preflightはtechnical readinessを報告するだけで、承認receiptや実験出力を生成しません。
+同じrun・入力・code・model・runtimeの範囲に既に得た承認があるなら重複確認せず、それ以外への承認流用をしません。
+retry/fallbackを自動追加せず、既存結果を消して出力先を空にする処理もありません。
+
+許可された再現試験は、元のrunと凍結出力を保持した別runとして実施できます。個別契約のDO_NOT_RERUNは守ります。

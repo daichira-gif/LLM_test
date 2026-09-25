@@ -1,0 +1,218 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1"
+    },
+    "tool": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "enum": [
+        "pass",
+        "blocked",
+        "error"
+      ]
+    },
+    "technical_pass": {
+      "type": "boolean"
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "enum": [
+              "PASS",
+              "FAIL",
+              "PARTIAL",
+              "NOT_APPLICABLE",
+              "NOT_ASSESSED",
+              "NOT_VERIFIED"
+            ]
+          },
+          "details": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "status",
+          "details"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    },
+    "issues": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "minLength": 1
+          },
+          "message": {
+            "type": "string",
+            "minLength": 1
+          },
+          "path": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "layers": {
+          "type": "object",
+          "properties": {
+            "execution_status": {
+              "enum": [
+                "PASS",
+                "FAIL",
+                "PARTIAL",
+                "NOT_APPLICABLE",
+                "NOT_ASSESSED",
+                "NOT_VERIFIED"
+              ]
+            },
+            "persistence_status": {
+              "enum": [
+                "PASS",
+                "FAIL",
+                "PARTIAL",
+                "NOT_APPLICABLE",
+                "NOT_ASSESSED",
+                "NOT_VERIFIED"
+              ]
+            },
+            "structural_status": {
+              "enum": [
+                "PASS",
+                "FAIL",
+                "PARTIAL",
+                "NOT_APPLICABLE",
+                "NOT_ASSESSED",
+                "NOT_VERIFIED"
+              ]
+            },
+            "semantic_status": {
+              "enum": [
+                "PASS",
+                "FAIL",
+                "PARTIAL",
+                "NOT_APPLICABLE",
+                "NOT_ASSESSED",
+                "NOT_VERIFIED"
+              ]
+            },
+            "scientific_status": {
+              "enum": [
+                "PASS",
+                "FAIL",
+                "PARTIAL",
+                "NOT_APPLICABLE",
+                "NOT_ASSESSED",
+                "NOT_VERIFIED"
+              ]
+            }
+          },
+          "required": [
+            "execution_status",
+            "persistence_status",
+            "structural_status",
+            "semantic_status",
+            "scientific_status"
+          ],
+          "additionalProperties": false
+        },
+        "required_layers": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "execution_status",
+              "persistence_status",
+              "structural_status",
+              "semantic_status",
+              "scientific_status"
+            ]
+          },
+          "minItems": 1
+        },
+        "execution_observation": {
+          "const": "receipt_declared_not_independently_observed"
+        },
+        "approval_granted": {
+          "const": false
+        },
+        "authority_state": {
+          "enum": [
+            "AUTHORITY_EXACT",
+            "AUTHORITY_HASH_MISMATCH",
+            "AUTHORITY_SUPERSEDED",
+            "AUTHORITY_AMBIGUOUS",
+            "AUTHORITY_NOT_FOUND",
+            "AUTHORITY_NOT_VERIFIED"
+          ]
+        },
+        "authority": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "lineage_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "contract_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "receipt_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "required": [
+        "layers",
+        "required_layers",
+        "execution_observation",
+        "approval_granted",
+        "authority_state",
+        "authority",
+        "lineage_sha256",
+        "contract_sha256",
+        "receipt_sha256"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "schema_version",
+    "tool",
+    "status",
+    "technical_pass",
+    "checks",
+    "issues",
+    "data"
+  ],
+  "additionalProperties": false
+}

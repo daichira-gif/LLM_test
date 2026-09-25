@@ -1,0 +1,51 @@
+{
+  "schema_version": "1",
+  "protected_roots": [
+    "LLMATCH_GraphRAG/archive",
+    "LLMATCH_GraphRAG/outputs",
+    "LLMATCH_secure_git/manifests",
+    "LLMATCH_secure_git/outputs",
+    "archive",
+    "deliveries",
+    "dev_eval_out",
+    "kg_runs",
+    "outputs",
+    "outputs1206",
+    "pilot_C_agent_archive",
+    "worktrees/codex_control_plane_bootstrap_20260810_v001/manifests",
+    "worktrees/codex_control_plane_bootstrap_20260810_v001/research/coordination",
+    "worktrees/codex_control_plane_graphrag_20260809_v001/archive",
+    "worktrees/codex_control_plane_graphrag_20260809_v001/outputs",
+    "worktrees/codex_control_plane_primary_20260809_v001/manifests",
+    "worktrees/codex_control_plane_primary_20260809_v001/research/coordination",
+    "worktrees/codex_control_plane_v2_20260821_v001/manifests",
+    "worktrees/codex_control_plane_v2_20260821_v001/research/coordination",
+    "worktrees/codex_eu_calibration_b_20260810_v001/manifests",
+    "worktrees/codex_eu_calibration_b_20260810_v001/research/coordination",
+    "worktrees/codex_moe_gold_v2_20260810_v001/manifests",
+    "worktrees/codex_moe_gold_v2_20260810_v001/research/coordination",
+    "worktrees/codex_research_current_state_20260810_v001/manifests",
+    "worktrees/codex_research_current_state_20260810_v001/research/coordination",
+    "worktrees/codex_research_current_state_20260810_v001_v002/manifests",
+    "worktrees/codex_research_current_state_20260810_v001_v002/research/coordination",
+    "worktrees/full_kg_v3_g1_input_freeze_20260802/manifests",
+    "worktrees/full_kg_v3_pilot_b_freeze_repair_20260802/manifests",
+    "worktrees/pilot_b_final_preflight_preparation_20260811_v001/manifests",
+    "worktrees/pilot_b_final_preflight_preparation_20260811_v001/research/coordination",
+    "worktrees/pilot_b_final_preflight_preparation_20260811_v002/manifests",
+    "worktrees/pilot_b_final_preflight_preparation_20260811_v002/research/coordination",
+    "worktrees/pilot_b_formal_evaluation_20260810_v001/manifests",
+    "worktrees/pilot_b_formal_evaluation_20260810_v001/research/coordination",
+    "worktrees/pilot_b_governance_remediation_20260810_v001/manifests",
+    "worktrees/pilot_b_governance_remediation_20260810_v001/research/coordination",
+    "worktrees/research_current_state_20260822_v001/manifests",
+    "worktrees/research_current_state_20260822_v001/research/coordination"
+  ],
+  "protected_files": [],
+  "sealed_roots": [
+    "holdout"
+  ],
+  "sealed_files": [
+    "50_Q&A_for_susfi_ golden_answers.xlsx"
+  ]
+}

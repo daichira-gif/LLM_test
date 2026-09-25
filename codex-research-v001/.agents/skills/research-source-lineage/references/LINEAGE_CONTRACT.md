@@ -1,0 +1,2 @@
+lineageはmanifestが宣言するDAG。node hashとparent/edge整合を検査する。宣言自体が正式な実験系譜かどうかは元の契約から判断する。
+入力schemaは共通rootのschemas/research、具体的な動作例は合成fixtureを参照する。既存SourceUnit IDを変更する処理は含まない。

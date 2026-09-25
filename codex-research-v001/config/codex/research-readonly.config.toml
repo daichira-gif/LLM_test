@@ -1,0 +1,31 @@
+#:schema https://developers.openai.com/codex/config-schema.json
+# Codex 0.134.0+ config profile: install as $CODEX_HOME/research-readonly.config.toml.
+# Select explicitly with codex --profile research-readonly.
+model = "gpt-6-astra"
+model_reasoning_effort = "high"
+web_search = "disabled"
+sandbox_mode = "read-only"
+approval_policy = "never"
+
+developer_instructions = """
+LLMATCH research guidance applies when the current task works on files at or below
+C:/Users/daich/OneDrive/LLM/LLMATCH (Windows) or
+/mnt/c/Users/daich/OneDrive/LLM/LLMATCH (WSL).
+For work in that scope, read the shared AGENTS.md at that root using the path
+available on the current host, while retaining applicable repository and worktree
+instructions. Load the relevant research workflow from the shared
+.agents/skills/<skill-name>/SKILL.md when needed. The six skill names are
+research-authority-check, research-source-lineage, research-experiment-preflight,
+research-gold-protection, research-result-audit, and research-handoff.
+Resolve the selected skill's linked references relative to its own directory.
+Apply the user's current instructions and keep checks proportional to completing
+the research pipeline. Outside that LLMATCH scope, these shared research
+instructions do not apply.
+"""
+
+[memories]
+generate_memories = false
+use_memories = false
+
+[features]
+skill_mcp_dependency_install = false

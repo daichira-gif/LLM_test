@@ -1,0 +1,15 @@
+{
+  "files": [
+    {
+      "id": "source",
+      "path": "source.txt",
+      "sha256": "5ce23817608f5ae304e2a1c72dc938db507f5b10787639f3e372c06859fa8e3f"
+    },
+    {
+      "id": "derived",
+      "path": "derived.txt",
+      "sha256": "b74c18940fb17c24652094028f0c4ee2f8ed73a64bb1bd84be664344c2804c62"
+    }
+  ],
+  "schema_version": "1"
+}
