@@ -35,7 +35,7 @@ exists_meta() {
 }
 
 section "AUDIT IDENTITY"
-echo "audit_version=claude-research-v001.phase0.v1"
+echo "audit_version=claude-research-v001.phase0.v2"
 echo "timestamp_utc=$TS"
 echo "target_root=$PWD"
 echo "report_path=$OUT"
@@ -89,21 +89,21 @@ done
 
 section "PROJECT .claude FILE INDEX"
 if [[ -d ".claude" ]]; then
-  find .claude -maxdepth 4 -type f -print | LC_ALL=C sort
+  find .claude -type f -print | LC_ALL=C sort
 else
   echo ".claude directory: ABSENT"
 fi
 
 section "PROJECT SKILL NAMES"
 if [[ -d ".claude/skills" ]]; then
-  find .claude/skills -maxdepth 2 -name SKILL.md -print | LC_ALL=C sort
+  find .claude/skills -name SKILL.md -print | LC_ALL=C sort
 else
   echo "project skills: NONE"
 fi
 
 section "PROJECT SUBAGENT FILES"
 if [[ -d ".claude/agents" ]]; then
-  find .claude/agents -maxdepth 1 -type f -name '*.md' -print | LC_ALL=C sort
+  find .claude/agents -type f -name '*.md' -print | LC_ALL=C sort
 else
   echo "project agents: NONE"
 fi
@@ -158,14 +158,14 @@ done
 
 if [[ -d "$HOME/.claude/skills" ]]; then
   echo "-- global skills --"
-  find "$HOME/.claude/skills" -maxdepth 2 -name SKILL.md -print | LC_ALL=C sort
+  find "$HOME/.claude/skills" -name SKILL.md -print | LC_ALL=C sort
 else
   echo "global skills: NONE"
 fi
 
 if [[ -d "$HOME/.claude/agents" ]]; then
   echo "-- global agents --"
-  find "$HOME/.claude/agents" -maxdepth 1 -type f -name '*.md' -print | LC_ALL=C sort
+  find "$HOME/.claude/agents" -type f -name '*.md' -print | LC_ALL=C sort
 else
   echo "global agents: NONE"
 fi
@@ -187,6 +187,12 @@ if p.exists():
         if isinstance(obj.get("env"), dict):
             print("global_env_variable_names=" + ",".join(sorted(obj["env"].keys())))
 PY
+
+section "PROJECT ROOT RESOLUTION CANDIDATES"
+echo "terminal_pwd=$PWD"
+echo "git_root=$(git rev-parse --show-toplevel 2>/dev/null || echo NOT_AVAILABLE)"
+echo "CLAUDE_PROJECT_DIR is intentionally not expected in a normal terminal audit."
+echo "Its behavior will be verified inside Claude Code before hook/skill installation."
 
 section "RELEVANT ENVIRONMENT VARIABLE NAMES"
 python3 - <<'PY'
@@ -213,10 +219,10 @@ fi
 if [[ -f "CLAUDE.local.md" ]]; then
   echo "INFO: CLAUDE.local.md detected; it may add local project instructions."
 fi
-if [[ -d ".claude/hooks" ]] && find .claude/hooks -type f -maxdepth 2 2>/dev/null | grep -q .; then
+if [[ -d ".claude/hooks" ]] && find .claude/hooks -type f -print 2>/dev/null | head -n 1 | grep -q .; then
   echo "INFO: existing project hooks detected; merge/conflict review required."
 fi
-if [[ -d ".claude/skills" ]] && find .claude/skills -mindepth 1 -maxdepth 1 -type d 2>/dev/null | grep -q .; then
+if [[ -d ".claude/skills" ]] && find .claude/skills -type f -name SKILL.md -print 2>/dev/null | head -n 1 | grep -q .; then
   echo "INFO: existing project skills detected; name-collision review required."
 fi
 if [[ ! -f "AGENTS.md" ]]; then
