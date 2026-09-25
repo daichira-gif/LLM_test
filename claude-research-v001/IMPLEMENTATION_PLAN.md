@@ -1,22 +1,21 @@
 # Claude Research Environment V001 — Implementation Plan
 
-Status: **NOT_STARTED**
+Status: **PHASE0_AUDIT_PENDING**
 
 Implementation must occur on the MacBook Air only after the current design has been reviewed against the actual local Claude Code version and the target repository layout.
 
 ## Phase 0 — Pre-implementation audit
 
-Before writing any Claude files:
+Before writing any Claude runtime files:
 
 1. Record:
-   - macOS version,
-   - Claude Code version,
-   - current model availability,
+   - macOS version and architecture,
+   - Claude Code executable path and version,
    - repository absolute path,
    - Python version,
-   - Git status.
+   - Git branch / HEAD / worktree state.
 
-2. Inspect existing project files:
+2. Inspect existing project metadata without printing secrets:
    - `AGENTS.md`
    - `CLAUDE.md`
    - `CLAUDE.local.md`
@@ -26,6 +25,7 @@ Before writing any Claude files:
    - `.claude/agents/`
    - `.claude/rules/`
    - `.claude/hooks/`
+   - relevant global `~/.claude/` metadata.
 
 3. Check for conflicts:
    - pre-existing hooks,
@@ -34,19 +34,29 @@ Before writing any Claude files:
    - skill-name collisions,
    - subagent-name collisions,
    - repository-local Claude rules,
-   - Git ignore behavior for local settings.
+   - Git ignore behavior for local settings,
+   - environment variables that materially alter Claude Code behavior.
 
-4. Re-run static review of the Codex V001 shared helpers before reuse.
+4. Validate current official Claude Code behavior before using host-specific setting keys.
 
-5. Confirm that Windows/WSL paths are removed from all Claude-adapted skills.
+5. Re-run static review of the Codex V001 shared helpers before reuse.
 
-Do not proceed to implementation if the local environment differs materially from the assumptions in `DESIGN.md` without documenting the difference.
+6. Confirm that Windows/WSL paths are removed from all Claude-adapted skills.
 
-## Phase 1 — Shared policy reuse
+7. Confirm the corrected instruction-loading design:
+   - `AGENTS.md` remains the shared semantic source;
+   - a minimal `CLAUDE.md` imports `@AGENTS.md`;
+   - no duplicated policy copy is created.
+
+Use `tools/mac_phase0_audit.sh` and `PHASE0_TERMINAL_GUIDE_JA.md`.
+
+Do not proceed to Phase 1 if the local environment differs materially from the assumptions in `DESIGN.md` without documenting the difference.
+
+## Phase 1 — Shared policy bridge
 
 1. Reuse the existing research `AGENTS.md`.
-2. Do not add a duplicate full `CLAUDE.md`.
-3. If Claude fails to load `AGENTS.md` in the installed version, add a minimal compatibility `CLAUDE.md` that references/imports the shared policy.
+2. Create a minimal project-root `CLAUDE.md` containing `@AGENTS.md`.
+3. Do not duplicate research-policy text in `CLAUDE.md`.
 4. Add `.claude/rules/research-agent-behavior.md`.
 
 ## Phase 2 — Port the six skills
@@ -56,7 +66,7 @@ For each Codex V001 skill:
 1. preserve semantic states and stop conditions,
 2. replace Windows/WSL helper roots,
 3. use `${CLAUDE_PROJECT_DIR}`,
-4. add Claude-native routing metadata only where useful,
+4. add Claude-native routing metadata only after verifying support in the installed version,
 5. verify referenced assets and references exist,
 6. ensure no skill performs hidden file mutation.
 
@@ -71,7 +81,7 @@ Skills:
 
 ## Phase 3 — Add hard controls
 
-Implement:
+Implement after validating the installed Claude Code setting/hook schema:
 
 - shared `.claude/settings.json`,
 - generated local sandbox path rules,
@@ -99,7 +109,7 @@ Do not create an implementation subagent in V001.
 
 ## Phase 5 — Add three operating profiles
 
-Create:
+Create, using only setting keys confirmed for the installed Claude Code version:
 
 - `config/claude/research-readonly.settings.json`
 - `config/claude/research-safe.settings.json`
