@@ -14,12 +14,25 @@ The target environment is a MacBook Air running Claude Code. The design intentio
 4. Prevent accidental mutation of Gold, sealed holdout, authority artifacts, frozen inputs, and prior production outputs.
 5. Separate development, qualification, production operation, and post-run audit.
 6. Use Claude-specific hard controls where available instead of relying only on prompt instructions.
-7. Avoid duplicating `AGENTS.md` into a divergent `CLAUDE.md`.
+7. Keep `AGENTS.md` as the semantic source of truth while providing Claude Code with a minimal `CLAUDE.md` bridge that imports `@AGENTS.md`.
+
+## Design correction before implementation
+
+The initial design assumed Claude Code would natively fall back to `AGENTS.md`. The current official Claude Code documentation explicitly documents `CLAUDE.md` as the always-loaded project instruction file and supports `@path` imports. Therefore Claude V001 will include a minimal bridge:
+
+```markdown
+# Claude Code project instructions
+
+@AGENTS.md
+```
+
+The research policy remains single-sourced in `AGENTS.md`; the bridge contains no duplicated policy text.
 
 ## Planned Claude-specific layer
 
 ```text
-AGENTS.md                         # shared research principles
+AGENTS.md                         # shared research-policy source
+CLAUDE.md                         # minimal Claude bridge: @AGENTS.md
 .claude/
   settings.json                  # shared Claude controls
   settings.local.json            # Mac-local generated protections; not committed
@@ -61,6 +74,15 @@ The Codex implementation used as the semantic baseline is:
 - `../codex-research-v001/`
 
 Claude adaptation must preserve the research meaning of the six skills while changing only host-specific invocation, frontmatter, permissions, hooks, sandbox controls, and path resolution.
+
+## Phase 0 helper
+
+Before implementation on the Mac, use:
+
+- `tools/mac_phase0_audit.sh`
+- `PHASE0_TERMINAL_GUIDE_JA.md`
+
+The audit is non-destructive and writes its report only to the Mac temporary directory.
 
 See:
 
