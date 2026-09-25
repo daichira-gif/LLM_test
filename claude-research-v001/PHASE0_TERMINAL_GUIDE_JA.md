@@ -39,13 +39,15 @@ mdfind "kMDItemFSName == 'LLMATCH-KG-v3'c"
 
 を実行します。
 
-候補が出なければ:
+候補が出なければ、macOS標準 `find` で:
 
 ```bash
-find "$HOME" -maxdepth 5 -type d -name 'LLMATCH-KG-v3' 2>/dev/null
+find "$HOME" -type d -name 'LLMATCH-KG-v3' -prune 2>/dev/null
 ```
 
 を実行します。
+
+※ macOS標準のBSD `find` にはGNU版の `-maxdepth` がないため、今回の手順と監査scriptでは `-maxdepth` を使いません。
 
 ### 重要
 
@@ -110,7 +112,7 @@ Report: /.../claude_research_phase0_....txt
 
 と表示されます。
 
-## 7. Claude Code自身の診断を確認
+## 7. Claude Code自身の診断とproject-root情報を確認
 
 監査scriptでは対話的な診断を起動しません。
 
@@ -129,6 +131,18 @@ claude
 
 `/doctor` で修正を提案されても、この段階では自動修復キーを押さず、結果だけ確認してください。
 
+続けて、Claudeへの通常のメッセージとして次を入力してください。
+
+```text
+読み取り専用で、Bashを使って次の3点だけ確認してください。
+1. pwd
+2. git rev-parse --show-toplevel
+3. CLAUDE_PROJECT_DIR が設定されているか。設定されていれば値を表示。
+ファイル変更はしないでください。
+```
+
+これは `CLAUDE_PROJECT_DIR` が実際のインストールで信頼できるか確認するためです。V001実装ではこの変数単独には依存せず、Git rootをfallbackとして使います。
+
 その後 `/exit` または通常の終了操作で終了します。
 
 ## 8. こちらへ返してほしいもの
@@ -137,6 +151,7 @@ claude
 
 1. `mac_phase0_audit.sh` が最後に示したreportの全文
 2. `/doctor` で WARN / FAIL が出た場合、その該当行
+3. Claude内で確認した `pwd` / Git root / `CLAUDE_PROJECT_DIR` の3行
 
 ### 貼らないもの
 
