@@ -1,10 +1,19 @@
 {
   "schema_version": "claude-research-environment.status.v1",
   "artifact_family": "claude-research-v001",
-  "status": "DESIGN_ONLY_PHASE0_AUDIT_PENDING",
+  "status": "DESIGN_ONLY_PHASE0_PARTIAL_BASELINE_KNOWN",
   "target_environment": {
     "platform": "MacBook Air / macOS",
-    "host": "Claude Code"
+    "host": "Claude Code",
+    "workspace_root": "~/develop",
+    "target_repo": "~/develop/LLMATCH-KG-v3",
+    "hostname": "daichi-macbook",
+    "claude_code": {
+      "version": "2.1.281",
+      "installer_reported_path": "~/.local/bin/claude",
+      "installed": true,
+      "runtime_readback_verified": false
+    }
   },
   "semantic_baseline": {
     "repository": "daichira-gif/LLM_test",
@@ -34,6 +43,17 @@
     "AGENTS.md remains the shared semantic research-policy source.",
     "Claude Code receives that policy through a minimal CLAUDE.md importing @AGENTS.md.",
     "Mac-specific absolute protected paths should be generated locally and not committed.",
-    "gstack, ECC, and Super Skills are intentionally excluded from initial Claude V001."
-  ]
+    "gstack, ECC, and Super Skills are intentionally excluded from initial Claude V001.",
+    "Mac host uses ~/develop directly; no LLMATCH parent directory is planned.",
+    "Claude Code 2.1.281 was installed via the official install script; command/path readback remains Phase 0 work."
+  ],
+  "phase0_known": {
+    "develop_workspace_selected": true,
+    "target_repo_remote": "daichira-gif/LLMATCH-KG-v3",
+    "target_repo_default_branch": "main",
+    "github_root_has_agents_md": false,
+    "github_root_has_claude_md": false,
+    "github_root_has_dot_claude": false,
+    "gitignore_needs_claude_local_rules": true
+  }
 }
