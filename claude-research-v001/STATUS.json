@@ -12,7 +12,8 @@
     "branch": "main"
   },
   "design_revision": {
-    "instruction_loading_correction": "CLAUDE.md bridge importing @AGENTS.md is required by V001 design; AGENTS.md remains the semantic source."
+    "instruction_loading_correction": "CLAUDE.md bridge importing @AGENTS.md is required by V001 design; AGENTS.md remains the semantic source.",
+    "project_root_resolution": "Do not rely solely on CLAUDE_PROJECT_DIR; validate it and fall back to git rev-parse --show-toplevel."
   },
   "design_files": [
     "README.md",
@@ -29,6 +30,7 @@
   "protected_artifacts_modified": false,
   "notes": [
     "Claude V001 must not copy Windows/WSL hardcoded helper roots from Codex V001.",
+    "Claude V001 root resolution must tolerate CLAUDE_PROJECT_DIR being absent or incorrect in some macOS/worktree contexts.",
     "AGENTS.md remains the shared semantic research-policy source.",
     "Claude Code receives that policy through a minimal CLAUDE.md importing @AGENTS.md.",
     "Mac-specific absolute protected paths should be generated locally and not committed.",
