@@ -6,7 +6,7 @@ The Claude adapter is divided into five layers.
 
 ```text
 Layer 0  Claude Code permissions / sandbox / hooks
-Layer 1  Shared research policy in AGENTS.md
+Layer 1  Shared research policy in AGENTS.md, loaded through minimal CLAUDE.md bridge
 Layer 2  Claude project skills in .claude/skills/
 Layer 3  Claude rules and read-only specialist subagents
 Layer 4  Shared deterministic helpers / schemas / research contracts
@@ -16,19 +16,27 @@ The design deliberately avoids installing gstack, ECC, or Super Skills initially
 
 ## 2. Instruction authority
 
-### Shared authority
+### Shared semantic authority
 
-Use the repository `AGENTS.md` as the common research-policy authority for both Codex and Claude.
+Keep the repository `AGENTS.md` as the single semantic research-policy source shared with the Codex adapter.
 
-Do not create a second full copy of the policy in `CLAUDE.md`.
+Claude Code's current documented project-memory mechanism is `CLAUDE.md`. Claude V001 must therefore create a minimal project-root `CLAUDE.md` containing an import of the shared policy:
 
-If a project-level `CLAUDE.md` is later required for compatibility, keep it minimal and import/reference the shared policy rather than duplicating it.
+```markdown
+# Claude Code project instructions
+
+@AGENTS.md
+```
+
+Do not duplicate the research policy text in `CLAUDE.md`. Any research-policy edit should be made in `AGENTS.md`.
+
+This corrects the earlier assumption that Claude Code would automatically use `AGENTS.md` without a bridge.
 
 ### Claude-only behavior
 
 Place Claude-specific behavior in:
 
-` .claude/rules/research-agent-behavior.md `
+`.claude/rules/research-agent-behavior.md`
 
 This file should cover only host-specific concerns such as:
 
@@ -56,8 +64,8 @@ Claude-specific changes:
 - install under `.claude/skills/<skill>/SKILL.md`;
 - remove Windows/WSL hardcoded paths;
 - invoke helpers through `${CLAUDE_PROJECT_DIR}/scripts/research/`;
-- add concise Claude-native routing metadata such as `when_to_use` where supported;
-- use high reasoning effort for `research-result-audit` where supported;
+- add concise Claude-native routing metadata only when verified against the installed Claude Code version;
+- use higher effort for independent audit/investigation where supported;
 - do not make experiment execution automatic merely because preflight passes.
 
 ### Skill boundary
@@ -92,23 +100,25 @@ Claude memory may not become research authority.
 
 ## 5. Permission and sandbox model
 
-Claude on macOS should use native sandboxing with failure-closed behavior.
+Claude on macOS should use native sandboxing with failure-closed behavior where supported by the installed version.
 
 Shared settings should:
 
 - enable sandboxing,
-- reject unsandboxed fallback,
+- reject or avoid unsandboxed fallback,
 - disable permission-bypass mode,
-- disable automatic broad permission mode,
+- avoid automatic broad permission modes,
 - require confirmation for destructive Git operations,
 - block common secret files such as `.env`.
+
+Exact setting keys must be validated against the installed Claude Code version during Phase 0 before committing runtime configuration.
 
 The design uses three protection layers for sensitive research artifacts:
 
 ```text
-1. AGENTS.md policy
+1. AGENTS.md policy, loaded through CLAUDE.md
 2. PreToolUse hook for Edit/Write/NotebookEdit
-3. macOS sandbox denyRead / denyWrite rules
+3. macOS sandbox filesystem restrictions
 ```
 
 The third layer is intended to protect against writes performed indirectly through Bash, Python, subprocesses, or other child processes.
@@ -237,7 +247,7 @@ Use for normal local development:
 Use only when external retrieval is required:
 
 - same local protections as research-safe,
-- web search enabled,
+- web search enabled where explicitly configured,
 - web fetch/network requests remain narrow and explicit,
 - destructive Git operations still require approval.
 
@@ -265,10 +275,11 @@ During frozen production, Claude must not opportunistically repair code, configu
 
 | Shared concept | Codex V001 | Claude V001 |
 |---|---|---|
-| repository research policy | AGENTS.md | same AGENTS.md |
+| repository research policy | AGENTS.md | CLAUDE.md imports @AGENTS.md |
+| semantic policy source | AGENTS.md | same AGENTS.md |
 | project skills | .agents/skills | .claude/skills |
 | host profile | TOML profile | JSON settings/profile |
-| memory control | Codex memories setting | Claude autoMemoryEnabled=false |
+| memory control | Codex memories setting | Claude auto-memory disabled |
 | write safety | sandbox + policy | macOS sandbox + permissions + hook |
 | root-cause specialist | gstack/in-session flow | research-investigator subagent |
 | independent audit | research skill | research-auditor subagent + research skill |
@@ -313,8 +324,8 @@ Do not include in Claude V001:
 - ECC,
 - Super Skills runtime,
 - broad MCP auto-approval,
-- auto memory,
+- auto memory as authority,
 - unrestricted shell/network access,
 - automatic production authorization,
-- duplicated CLAUDE.md policy,
+- duplicated policy text in CLAUDE.md,
 - semantic guessing of protected paths.
